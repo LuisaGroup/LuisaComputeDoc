@@ -1,20 +1,24 @@
 import markdown as md
 from pathlib import Path
 import os
+import shutil
 style_header = '''<!DOCTYPE html>
 <style>
 img {
   border: 1px solid #ddd;
   border-radius: 4px;
   padding: 5px;
-  width: 1500px;
+  max-width:100%;
+  max-height:100%;
 }
 </style>
 '''
 programPath = str(Path.cwd())
 root_dirs = ["en-us", "zh-cn"]
 replace_str = [
-  ("IMAGE_DIR", "../../image")
+  ("IMAGE_DIR", "../../image"),
+  ("    ", "&emsp;&emsp;"),
+  ("\t", "&emsp;&emsp;"),
 ]
 
 def makedir(path: str):
@@ -44,6 +48,8 @@ def process_path(root_dir: str):
     if not os.path.exists(root_dir):
         return
     html_rootpath = root_dir + "-html"
+    if os.path.exists(html_rootpath):
+        shutil.rmtree(html_rootpath)
     makedir(html_rootpath)
     local_path = programPath + '/' + root_dir
     for path in Path(root_dir).rglob('*.md'):

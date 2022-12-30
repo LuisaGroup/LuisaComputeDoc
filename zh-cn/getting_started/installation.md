@@ -1,19 +1,18 @@
-# 安装Release版本
-## Windows
+# 安装
+## 安装Release版本
+### Windows
 
-## MacOS
+### MacOS
 
-## Linux
+### Linux
 
-# C++源码编译
-## Windows
+## C++源码编译
 ### 使用xmake构建
 ### 使用CMake构建
-## MacOS
-### 使用xmake构建
-### 使用CMake构建
-## Linux
-### 使用xmake构建
-### 使用CMake构建
+### Windows
 
-# 使用Python源码
+### MacOS
+
+### Linux
+
+## 使用Python源码
