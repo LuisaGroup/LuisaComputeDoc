@@ -17,8 +17,7 @@ programPath = str(Path.cwd())
 root_dirs = ["en-us", "zh-cn"]
 replace_str = [
   ("IMAGE_DIR", "../../image"),
-  ("    ", "&emsp;&emsp;"),
-  ("\t", "&emsp;&emsp;"),
+  ("  ", "&nbsp&nbsp")
 ]
 
 def makedir(path: str):
