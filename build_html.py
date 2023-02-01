@@ -16,9 +16,47 @@ img {
 programPath = str(Path.cwd())
 root_dirs = ["en-us", "zh-cn"]
 replace_str = [
+  ('\r\n', '\n'),
   ("IMAGE_DIR", "../../image"),
   ("  ", "&nbsp&nbsp")
 ]
+def text_to_html(read_str: str):
+    return "<p>\n" + read_str.replace('<', "&lt;").replace('>', "&gt;").replace('\n', "<br>\n") + "</p>\n"
+
+def inline_html(ss: str):
+    result = ""
+    begin = "HTML_BEGIN\n"
+    end = "HTML_END\n"
+    while True:
+        idx = ss.find(begin)
+        if idx == -1:
+            result += ss
+            break
+        result += ss[0: idx]
+        ss = ss[idx + len(begin): len(ss)]
+        end_idx = ss.find(end)
+        if end_idx == -1:
+            raise "html begin & end must be coupled."
+        result += text_to_html(ss[0: end_idx])
+        ss = ss[end_idx + len(end): len(ss)]
+    return result
+def inline_text(ss: str):
+    result = ""
+    begin = "TEXT_BEGIN\n"
+    end = "TEXT_END\n"
+    while True:
+        idx = ss.find(begin)
+        if idx == -1:
+            result += ss
+            break
+        result += ss[0: idx]
+        ss = ss[idx + len(begin): len(ss)]
+        end_idx = ss.find(end)
+        if end_idx == -1:
+            raise "text begin & end must be coupled."
+        result += ss[0: end_idx].replace("\n", "<br>\n")
+        ss = ss[end_idx + len(end): len(ss)]
+    return result
 
 def makedir(path: str):
     if not os.path.exists(path):
@@ -59,6 +97,7 @@ def process_path(root_dir: str):
         f.close()
         for rps in replace_str:
           s = s.replace(rps[0], rps[1])
+        s = inline_text(inline_html(s))
         html = md.markdown(s)
         f = open(new_path, "w", encoding="utf-8")
         f.write(style_header)
