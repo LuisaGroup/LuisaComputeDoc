@@ -14,6 +14,7 @@ C++ API文档为需要查找LC前端功能的用户准备，其单独介绍每�
 * lc-vstl: 应用库，非STL标准容器等
 * lc-ast：语法树，提供kernel编译功能
 * lc-runtime：运行时前端
+* lc-gui：为支持窗口显示的后端（如DirectX-12, Metal）提供原生的GUI
 * lc-dsl：C++ DSL模块
 * lc-py：Python语言绑定模块
 * lc-backend-dx, lc-backend-metal, lc-backend-cuda：计算后端模块
@@ -34,8 +35,8 @@ C++ API文档为需要查找LC前端功能的用户准备，其单独介绍每�
 
 ### 非必需第三方子模块（均为可免费试用的开源工程）
 
-* [stb](https://github.com/nothings/stb.git)：导出图片库，lc_test目标依赖
-* [glfw](https://github.com/glfw/glfw.git)：提供跨平台窗口，lc_test目标依赖
-* [imgui](src/ext/imgui/imgui)：提供debug gui，lc_test目标依赖
-* [pybind11](https://github.com/LuisaGroup/pybind11)：提供Python绑定，lc_py目标依赖
+* [stb](https://github.com/nothings/stb.git)：导出图片库，lc-test目标依赖
+* [glfw](https://github.com/glfw/glfw.git)：提供跨平台窗口，lc-gui, lc-test目标依赖
+* [imgui](src/ext/imgui/imgui)：提供debug gui，lc-test目标依赖
+* [pybind11](https://github.com/LuisaGroup/pybind11)：提供Python绑定，lc-py目标依赖
 * [corrosion](https://github.com/corrosion-rs/corrosion)：提供rust编译支持，仅CMake源码编译用户需要。

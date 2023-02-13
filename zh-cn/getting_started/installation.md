@@ -32,6 +32,7 @@ toolchain: 根据不同操作系统可以选择不同的工具链，这通常会
 export_config: 当我们需要在其他项目中使用LuisaCompute的编译结果，而非直接使用源码编译时，可以设置此选项为true(默认为false)，这将会在编译完成时输出config/xmake_config.lua文件供其他工程使用。
 enable_dsl: 设置为true(默认为false)将编译DSL模块，支持C++内使用DSL编写kernel。
 enable_py: 设置为true(默认为false)将编译Python绑定支持。
+enable_gui: 设置为true(默认为false)将编译原生窗口和GUI支持
 enable_rust: 设置为true(默认为false, 遇到依赖时会强制开启)将编译Rust绑定与后端支持(xmake会在编译C++部分的同时拉取Cargo编译，请确保您的计算机已经正确安装Cargo)。
 enable_tests: 设置为true(默认为false，因tests模块依赖dsl，该选项将会强制启动enable_dsl)将编译test目录的构建，方便您测试与学习LuisaCompute的使用。
 dx_backend, cuda_backend, metal_backend: 设置为true(默认为true，根据平台和当前环境自动选择)将编译DirectX-12后端。
