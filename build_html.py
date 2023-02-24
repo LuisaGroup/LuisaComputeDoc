@@ -35,10 +35,14 @@ def inline_html(ss: str):
         result += ss[0: idx]
         ss = ss[idx + len(begin): len(ss)]
         end_idx = ss.find(end)
+        end_len = len(end)
         if end_idx == -1:
-            raise "html begin & end must be coupled."
+            end_idx = ss.find(end[0:len(end)-1])
+            if end_idx == -1 or end_idx < len(ss) - end_len:
+                raise "html begin & end must be coupled."
+            end_len -= 1
         result += text_to_html(ss[0: end_idx])
-        ss = ss[end_idx + len(end): len(ss)]
+        ss = ss[end_idx + end_len: len(ss)]
     return result
 def inline_text(ss: str):
     result = ""
@@ -52,10 +56,14 @@ def inline_text(ss: str):
         result += ss[0: idx]
         ss = ss[idx + len(begin): len(ss)]
         end_idx = ss.find(end)
+        end_len = len(end)
         if end_idx == -1:
-            raise "text begin & end must be coupled."
+            end_idx = ss.find(end[0:len(end)-1])
+            if end_idx == -1 or end_idx < len(ss) - end_len:
+                raise "text begin & end must be coupled."
+            end_len -= 1
         result += ss[0: end_idx].replace("\n", "<br>\n")
-        ss = ss[end_idx + len(end): len(ss)]
+        ss = ss[end_idx + end_len: len(ss)]
     return result
 
 def makedir(path: str):
@@ -97,7 +105,10 @@ def process_path(root_dir: str):
         f.close()
         for rps in replace_str:
           s = s.replace(rps[0], rps[1])
-        s = inline_text(inline_html(s))
+        try:
+            s = inline_text(inline_html(s))
+        except TypeError:
+            print("error at " + str(path))
         html = md.markdown(s)
         f = open(new_path, "w", encoding="utf-8")
         f.write(style_header)
